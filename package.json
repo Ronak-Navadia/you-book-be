@@ -1,0 +1,18 @@
+{
+  "name": "you-book-be",
+  "version": "1.0.0",
+  "description": "book-social-media",
+  "main": "server.js",
+  "repository": "git@github-ronak:Ronak-Navadia/you-book-be.git",
+  "author": "ronak",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
