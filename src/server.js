@@ -1,5 +1,15 @@
-import app from './app.js';
 import 'dotenv/config';
+import express from 'express';
+import connectDB from './config/db.js';
+
+//connect database
+connectDB()
+
+// initialize app using express
+const app = express();
+
+// Middleware to parse JSON
+app.use(express.json());
 
 const PORT = process.env.BACKEND_PORT || 5000;
 
