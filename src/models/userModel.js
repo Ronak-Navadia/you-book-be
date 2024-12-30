@@ -43,12 +43,26 @@ userSchema.methods.comparePassword = async function (userPassword) {
     return await bcrypt.compare(userPassword, this.password);
 };
 
-// Exclude password from query results
+// Exclude password,  from query results
 userSchema.set('toJSON', {
     transform: (doc, ret) => {
+        ret.id = ret._id;
         delete ret.password;
+        delete ret.__v;
+        delete ret._id;
         return ret;
     },
+});
+
+// Exclude password from query results
+userSchema.set('toObject', {
+    transform: (doc, ret) => {
+        ret.id = ret._id;
+        delete ret.password;
+        delete ret.__v;
+        delete ret._id;
+        return ret;
+    }
 });
 
 // Export the model

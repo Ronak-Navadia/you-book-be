@@ -12,13 +12,20 @@ export const signupUser = async(req, res) => {
         // Check if the user already exists
         const existingUser = await userService.findUserByEmail(email);
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({ code: 0, message: 'User already exists' });
         }
 
         // Create new user
         const user = await userService.createUser({ name, email, password, age, location });
 
-        res.status(201).json({ code: 1, message: 'User registered successfully', data: user });
+        // Convert to plain object and remove internal Mongoose properties
+        const userData = user.toObject();
+
+        // Generate JWT and store in user
+        const token = generateToken(user._id, user.email); 
+        userData.token = token;
+
+        res.status(201).json({ code: 1, message: 'User registered successfully', data: userData });
 
     } catch (error) {
         console.error(error);
@@ -43,10 +50,14 @@ export const loginUser = async(req, res) => {
             return res.status(400).json({ code: 0, message: 'Invalid email or password' });
         }
 
-        // Generate JWT
-        const token = generateToken(user._id, user.email);
+        // Convert to plain object and remove internal Mongoose properties
+        const userData = user.toObject();
 
-        res.status(200).json({ code: 1, message: 'Login successful', data: { token } });
+        // Generate JWT and store in userData
+        const token = generateToken(user._id, user.email);
+        userData.token = token;
+
+        res.status(200).json({ code: 1, message: 'Login successful', data: userData });
 
     } catch (error) {
         console.error(error);
