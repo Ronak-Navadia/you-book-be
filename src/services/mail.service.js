@@ -10,19 +10,19 @@ transporter.use("compile", hbs(handlebarOptions));
 
 // Send Mail template
 export const sendMail = async (to, subject, template, context) => {
-  try {
-    const mailOptions = {
-      from: process.env.MAIL_FROM,
-      to,
-      subject,
-      template,
-      context,
-    };
+    try {
+        const mailOptions = {
+            from: process.env.MAIL_FROM,
+            to,
+            subject,
+            template,
+            context,
+        };
 
-    await transporter.sendMail(mailOptions);
-    console.log(`Email sent to ${to}`);
-  } catch (error) {
-    console.error(`Failed to send email: ${error.message}`);
-    throw error;
-  }
+        await transporter.sendMail(mailOptions);
+        console.log(`Email sent to ${to}`);
+    } catch (error) {
+        console.error(`Failed to send email: ${error.message}`);
+        throw error;
+    }
 };

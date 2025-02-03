@@ -1,21 +1,21 @@
 import express from "express";
 
 import {
-  signupUser,
-  loginUser,
-  forgotPassword,
-  verifyCode,
-  resetPassword,
-  resendCode,
+    signupUser,
+    loginUser,
+    forgotPassword,
+    verifyCode,
+    resetPassword,
+    resendCode,
 } from "../controllers/user.controller.js";
 import { validateRequest } from "../middlewares/validate-request.middleware.js";
 import {
-  signupSchema,
-  loginSchema,
-  forgotPasswordSchema,
-  verifyCodeSchema,
-  resetPasswordSchema,
-  resendCodeSchema,
+    signupSchema,
+    loginSchema,
+    forgotPasswordSchema,
+    verifyCodeSchema,
+    resetPasswordSchema,
+    resendCodeSchema,
 } from "../validations/user.validation.js";
 
 const router = express.Router();
@@ -28,9 +28,9 @@ router.post("/login", validateRequest(loginSchema), loginUser);
 
 // forgot password
 router.post(
-  "/forgot-password",
-  validateRequest(forgotPasswordSchema),
-  forgotPassword
+    "/forgot-password",
+    validateRequest(forgotPasswordSchema),
+    forgotPassword
 );
 
 // verify code
@@ -38,9 +38,9 @@ router.post("/verify-code", validateRequest(verifyCodeSchema), verifyCode);
 
 // reset password
 router.post(
-  "/reset-password",
-  validateRequest(resetPasswordSchema),
-  resetPassword
+    "/reset-password",
+    validateRequest(resetPasswordSchema),
+    resetPassword
 );
 
 //resend code

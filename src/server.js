@@ -4,9 +4,11 @@ import swaggerUi from "swagger-ui-express";
 
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/user.routes.js";
+import bookRoutes from "./routes/book.routes.js";
 import swaggerSpecs from "./config/swaggerConfig.js";
+import authMiddleware from "./middlewares/auth.middleware.js";
 
-// Connect  database
+// Connect database
 connectDB();
 
 // Initialize app using express
@@ -20,6 +22,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // User routes
 app.use("/api/users", userRoutes);
+
+// Book routes
+app.use("/api/books", authMiddleware, bookRoutes);
 
 // Misc routes
 app.get("/", (req, res) => {
