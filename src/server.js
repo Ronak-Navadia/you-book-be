@@ -6,7 +6,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/user.routes.js";
 import swaggerSpecs from "./config/swaggerConfig.js";
 
-// Connect database
+// Connect  database
 connectDB();
 
 // Initialize app using express
@@ -23,13 +23,13 @@ app.use("/api/users", userRoutes);
 
 // Misc routes
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "API is working!" });
+    res.status(200).json({ message: "API is working!" });
 });
 
 const PORT = process.env.BACKEND_PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(
-    `You Book backend server magic happens at ${process.env.BACKEND_URL}`
-  );
+    console.log(
+        `You Book backend server magic happens at ${process.env.BACKEND_URL}`
+    );
 });
