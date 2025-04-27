@@ -1,25 +1,38 @@
 import express from "express";
-import Book from "../schemas/book.schema.js";
+import Book from "../models/book.model.js";
+import {
+    addBook,
+    getIndividualBook,
+    getMyBooks,
+    getOthersBooks,
+} from "../controllers/book.controller.js";
+import upload from "../config/multerConfig.js";
 
 const router = express.Router();
 
 //add book
-router.post("/", (req, res) => {
-    return res.json("book added successfully");
-});
+router.post(
+    "/",
+    upload.fields([
+        { name: "bookPdf", maxCount: 1 },
+        { name: "bookFrontCover", maxCount: 1 },
+        { name: "bookBackCover", maxCount: 1 },
+    ]),
+    addBook
+);
 
-// get all books other than my which are public
-router.get("/", (req, res) => {
-    return res.json("book added successfully");
-});
+router.get("/me", getMyBooks);
 
-//book apis
-// post - /books - add a book
-// get - /books - get all books other than my
-// get - /books/:bookId - get specific book
+router.get("/other", getOthersBooks);
 
-//library apis
-// post - /libraries - add to library - bookId in body
-// get - /libraries - get all library book of particular user
-// delete - /libraries/:id - remove from library
+router.get("/:bookId", getIndividualBook);
+
+//Tell to kartik
+// 1. Add Book
+// - we will not include (get a professional to edit and design the book cover and interior)
+//Kartik- Is this book made for kids (make No by default selected)
+//kartik - Age restriction (No do not restrict my book default selected)
+//kartik - publish now (public default selected)
+//kartik - schedule ( not include for now - keep disabled)
+
 export default router;

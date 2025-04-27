@@ -26,7 +26,7 @@ const bookSchema = new mongoose.Schema(
         },
         description: {
             type: String,
-            required: true,
+            required: false,
         },
         isCommentVisible: {
             type: Boolean,
@@ -38,7 +38,7 @@ const bookSchema = new mongoose.Schema(
             required: true,
             default: false,
         },
-        isRestricted: {
+        isAgeRestricted: {
             type: Boolean,
             required: true,
             default: false,
@@ -59,7 +59,25 @@ const bookSchema = new mongoose.Schema(
     }
 );
 
-// Export the model
-const Book = mongoose.model("Book", bookSchema);
+bookSchema.set("toJSON", {
+    transform: (doc, ret) => {
+        ret.id = ret._id;
+        delete ret.__v;
+        delete ret._id;
+        return ret;
+    },
+});
 
-export default Book;
+bookSchema.set("toObject", {
+    transform: (doc, ret) => {
+        ret.id = ret._id;
+        delete ret.__v;
+        delete ret._id;
+        return ret;
+    },
+});
+
+// Export the model
+const BookModel = mongoose.model("Book", bookSchema);
+
+export default BookModel;

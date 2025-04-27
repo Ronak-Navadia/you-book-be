@@ -1,15 +1,15 @@
-import User from "../schemas/user.schema.js";
+import UserModel from "../models/user.model.js";
 import redisClient from "../config/redisClient.js";
 import bcrypt from "bcryptjs";
 
 // Find user by email
 export const findUserByEmail = async (email) => {
-    return await User.findOne({ email });
+    return await UserModel.findOne({ email });
 };
 
 // Create a new user
 export const createUser = async (userData) => {
-    const user = new User(userData);
+    const user = new UserModel(userData);
     return await user.save();
 };
 
@@ -36,7 +36,7 @@ export const deleteVerificationCodeFromRedis = async (email) => {
 export const resetUserPassword = async (email, newPassword) => {
     // NOTE: I could have also use getUser and then save() to fire the pre-save event for hashing password but it got bit slower, while findOneAndUpdate gives performance.
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    return await User.findOneAndUpdate(
+    return await UserModel.findOneAndUpdate(
         { email },
         { $set: { password: hashedPassword } },
         { new: true }

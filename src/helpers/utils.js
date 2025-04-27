@@ -5,9 +5,10 @@ import crypto from "crypto";
 // Generate token
 export const generateToken = (userId, email) => {
     return jwt.sign({ id: userId, email }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "5h",
     });
 };
+//22959
 
 // Get user location
 export const getUserLocation = (req) => {
@@ -27,3 +28,6 @@ export const getUserLocation = (req) => {
 export const generateVerificationCode = () => {
     return crypto.randomInt(1000, 9999).toString();
 };
+
+// Fix path
+export const fixPath = (path) => path.replace(/\\/g, "/");
