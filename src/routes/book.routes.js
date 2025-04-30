@@ -1,31 +1,30 @@
-import express from "express";
-import Book from "../models/book.model.js";
+import express from 'express';
 import {
-    addBook,
-    getIndividualBook,
-    getMyBooks,
-    getOthersBooks,
-} from "../controllers/book.controller.js";
-import upload from "../config/multerConfig.js";
+  addBook,
+  getIndividualBook,
+  getMyBooks,
+  getOthersBooks,
+} from '../controllers/book.controller.js';
+import upload from '../config/multerConfig.js';
 
 const router = express.Router();
 
 //add book
 router.post(
-    "/",
-    upload.fields([
-        { name: "bookPdf", maxCount: 1 },
-        { name: "bookFrontCover", maxCount: 1 },
-        { name: "bookBackCover", maxCount: 1 },
-    ]),
-    addBook
+  '/',
+  upload.fields([
+    { name: 'bookPdf', maxCount: 1 },
+    { name: 'bookFrontCover', maxCount: 1 },
+    { name: 'bookBackCover', maxCount: 1 },
+  ]),
+  addBook
 );
 
-router.get("/me", getMyBooks);
+router.get('/me', getMyBooks);
 
-router.get("/other", getOthersBooks);
+router.get('/other', getOthersBooks);
 
-router.get("/:bookId", getIndividualBook);
+router.get('/:bookId', getIndividualBook);
 
 //Tell to kartik
 // 1. Add Book

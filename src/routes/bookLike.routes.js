@@ -1,8 +1,8 @@
-import express from "express";
-import { addBookLike } from "../controllers/bookLike.controller.js";
+import express from 'express';
+import { addBookLike } from '../controllers/bookLike.controller.js';
 
 const router = express.Router();
 
-router.post("/:bookId", addBookLike);
+router.post('/:bookId', addBookLike);
 
 export default router;
